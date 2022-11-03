@@ -24,14 +24,19 @@ public class ApplicationDbContext : DbContext
         _bus = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite("Data Source=../../db/destinations;");
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        options.EnableSensitiveDataLogging();
+        options.UseSqlite("Data Source=../../db/destinations;");
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new DestinationMap());
         modelBuilder.ApplyConfiguration(new DestinationTagsMap());
         modelBuilder.ApplyConfiguration(new DestinationAverageSpendMap());
-        modelBuilder.ApplyConfiguration(new DestinationTemperatureMap());
+        modelBuilder.ApplyConfiguration(new ClimateStatusMap());
+        modelBuilder.ApplyConfiguration(new DestinationClimateAverageMap());
         modelBuilder.ApplyConfiguration(new DestinationImageMap());
         modelBuilder.ApplyConfiguration(new DestinationTagListMap());
         modelBuilder.ApplyConfiguration(new RouteCoordinatesMap());

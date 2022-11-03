@@ -10,6 +10,6 @@ public static class CustomAuthenticationSetup
         if (services is null) throw new ArgumentNullException(nameof(services));
 
         services.AddAuthentication()
-            .AddScheme<BasicAuthenticationSchemeOptions, BasicAuthenticationScheme>(CustomAuthenticationSchemes.Basic, null);
+            .AddScheme<BearerAuthenticationSchemeOptions, BearerAuthenticationScheme>(CustomAuthenticationSchemes.Bearer, null);
     }
 }

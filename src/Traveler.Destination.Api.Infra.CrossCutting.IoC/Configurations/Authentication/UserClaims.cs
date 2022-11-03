@@ -1,6 +1,6 @@
 ﻿namespace Traveler.Destination.Api.Infra.CrossCutting.IoC.Configurations.Authentication;
 
-public class CustomAuthenticationSchemes
+public static class UserClaims
 {
-    public const string Bearer = "Bearer";
+    public const string UserId = "UserId";
 }

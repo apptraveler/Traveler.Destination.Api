@@ -15,5 +15,9 @@ public class DestinationTagListMap : IEntityTypeConfiguration<DestinationTag>
         builder.HasOne<DestinationTags>()
             .WithMany()
             .HasForeignKey(x => x.TagId);
+
+        builder.HasOne<Domain.Aggregates.DestinationAggregate.Destination>()
+            .WithMany(x => x.Tags)
+            .HasForeignKey(x => x.DestinationId);
     }
 }

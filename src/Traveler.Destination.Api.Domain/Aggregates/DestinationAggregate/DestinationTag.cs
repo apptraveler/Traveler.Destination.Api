@@ -5,7 +5,7 @@ namespace Traveler.Destination.Api.Domain.Aggregates.DestinationAggregate;
 
 public class DestinationTag : Entity
 {
-    public Guid DestinationId { get; }
+    public Guid DestinationId { get; private set; }
     public int TagId { get; }
 
     public DestinationTag(Guid destinationId, int tagId)
@@ -14,5 +14,7 @@ public class DestinationTag : Entity
         TagId = tagId;
     }
 
-    private DestinationTag() {}
+    private DestinationTag()
+    {
+    }
 }

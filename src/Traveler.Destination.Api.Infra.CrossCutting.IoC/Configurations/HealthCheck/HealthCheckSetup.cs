@@ -18,7 +18,9 @@ public static class HealthCheckSetup
         hcBuilder.AddCheck("Self Check API", () => HealthCheckResult.Healthy("HealthCheck Working"));
         // ADD OTHER CHECKS HERE
 
-        hcBuilder.AddCheck<RequiredSectionsHealthCheck<ApplicationConfiguration>>(nameof(ApplicationConfiguration));
+        hcBuilder
+            .AddCheck<RequiredSectionsHealthCheck<ApplicationConfiguration>>(nameof(ApplicationConfiguration))
+            .AddCheck<RequiredSectionsHealthCheck<IdentityConfiguration>>(nameof(IdentityConfiguration));
     }
 
     public static void MapHealthCheck(this IEndpointRouteBuilder endpoints)

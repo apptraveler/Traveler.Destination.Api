@@ -14,19 +14,19 @@ using Traveler.Destination.Api.Infra.CrossCutting.Environments.Configurations;
 
 namespace Traveler.Destination.Api.Application.QueryHandlers;
 
-public class GetDestinationsQueryHandler : QueryHandler<GetDestinationsQuery, ICollection<DestinationResponse>>
+public class GetDestinationsBySearchTermQueryHandler : QueryHandler<GetDestinationsBySearchTermQuery, ICollection<DestinationResponse>>
 {
     private readonly IDestinationRepository _destinationRepository;
     private readonly IMediator _bus;
     private readonly IMapper _mapper;
-    private readonly ILogger<GetDestinationsQueryHandler> _logger;
+    private readonly ILogger<GetDestinationsBySearchTermQueryHandler> _logger;
 
-    public GetDestinationsQueryHandler(
+    public GetDestinationsBySearchTermQueryHandler(
         ApplicationConfiguration applicationConfiguration,
         IDestinationRepository destinationRepository,
         IMediator bus,
         IMapper mapper,
-        ILogger<GetDestinationsQueryHandler> logger
+        ILogger<GetDestinationsBySearchTermQueryHandler> logger
     ) : base(applicationConfiguration)
     {
         _destinationRepository = destinationRepository;
@@ -35,17 +35,17 @@ public class GetDestinationsQueryHandler : QueryHandler<GetDestinationsQuery, IC
         _logger = logger;
     }
 
-    public override async Task<ICollection<DestinationResponse>> Handle(GetDestinationsQuery request, CancellationToken cancellationToken)
+    public override async Task<ICollection<DestinationResponse>> Handle(GetDestinationsBySearchTermQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            var destinations = await _destinationRepository.GetAll();
+            var destinations = await _destinationRepository.GetBySearchTerm(request.SearchTerm);
 
             return _mapper.Map<ICollection<DestinationResponse>>(destinations);
         }
         catch (Exception e)
         {
-            _logger.LogCritical("Ocorreu um erro ao buscar todos os destinos #### Exception: {0} ####", e.ToString());
+            _logger.LogCritical("Ocorreu um erro ao buscar os destinos com base no termo #### Exception: {0} ####", e.ToString());
             await _bus.Publish(new ExceptionNotification("12-UnknownError", "Ocorreu um erro desconhecido"), cancellationToken);
             return default;
         }

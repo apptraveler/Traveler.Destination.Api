@@ -6,6 +6,13 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Traveler.Destination.Api.Application.Adapters.Identity;
+using Traveler.Destination.Api.Domain.Aggregates.BookmarkedDestination;
+using Traveler.Destination.Api.Domain.Aggregates.DestinationAggregate;
+using Traveler.Destination.Api.Domain.SeedWork;
+using Traveler.Destination.Api.Infra.Data.Repositories;
+using Traveler.Destination.Api.Infra.Data.UnitOfWork;
+using Traveler.Destination.Api.Infra.Proxy.Identity.Core;
 
 namespace Traveler.Destination.Api.Infra.CrossCutting.IoC;
 
@@ -16,13 +23,15 @@ public static class NativeInjectorBootstrapper
         RegisterData(services);
         RegisterMediatR(services);
         RegisterEnvironments(services, configuration);
+        RegisterProxies(services);
     }
 
     private static void RegisterData(IServiceCollection services)
     {
         services.AddMemoryCache();
-        // here goes your repository injection
-        // sample: services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IDestinationRepository, DestinationRepository>();
+        services.AddScoped<IBookmarkDestinationRepository, BookmarkedDestinationRepository>();
     }
 
     private static void RegisterMediatR(IServiceCollection services)
@@ -42,5 +51,11 @@ public static class NativeInjectorBootstrapper
     private static void RegisterEnvironments(IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton(configuration.GetSection(nameof(ApplicationConfiguration)).Get<ApplicationConfiguration>());
+        services.AddSingleton(configuration.GetSection(nameof(IdentityConfiguration)).Get<IdentityConfiguration>());
+    }
+
+    private static void RegisterProxies(IServiceCollection services)
+    {
+        services.AddHttpClient<IAuthorization, IdentityService>();
     }
 }

@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Traveler.Destination.Api.Domain.Exceptions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Traveler.Destination.Api.Application.Commands;
 using Traveler.Destination.Api.Application.Queries;
 using Traveler.Destination.Api.Application.Response;
 using Traveler.Destination.Api.Dtos;
+using Traveler.Destination.Api.Infra.CrossCutting.IoC.Configurations.Authentication;
 
 namespace Traveler.Destination.Api.Controllers.V1;
 
 [ApiVersion("1")]
 [ApiController]
+[Authorize(AuthenticationSchemes = CustomAuthenticationSchemes.Bearer)]
 public class DestinationController : BaseController
 {
     private readonly IMediator _bus;
@@ -45,8 +48,8 @@ public class DestinationController : BaseController
     [ProducesResponseType(typeof(Response<ICollection<DestinationResponse>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetRecommendedDestinations()
     {
-        // todo: buscar guid do usuário
-        var query = new GetRecommendedDestinationsByUserIdQuery(Guid.NewGuid());
+        var userId = GetIdentityClaim(UserClaims.UserId);
+        var query = new GetRecommendedDestinationsByUserIdQuery(Guid.Parse(userId));
         var response = await _bus.Send(query);
         return Response(Ok(new Response<ICollection<DestinationResponse>>(response)));
     }
@@ -64,8 +67,8 @@ public class DestinationController : BaseController
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> BookmarkDestinationById(Guid id)
     {
-        // todo: buscar guid do usuário
-        var command = new BookmarkDestinationByIdCommand(Guid.NewGuid(), id);
+        var userId = GetIdentityClaim(UserClaims.UserId);
+        var command = new BookmarkDestinationByIdCommand(Guid.Parse(userId), id);
         await _bus.Send(command);
         return Response(NoContent());
     }
@@ -74,8 +77,8 @@ public class DestinationController : BaseController
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> RemoveDestinationBookmarkById(Guid id)
     {
-        // todo: buscar guid do usuário
-        var command = new DeleteBookmarkedDestinationByIdCommand(Guid.NewGuid(), id);
+        var userId = GetIdentityClaim(UserClaims.UserId);
+        var command = new DeleteBookmarkedDestinationByIdCommand(Guid.Parse(userId), id);
         await _bus.Send(command);
         return Response(NoContent());
     }

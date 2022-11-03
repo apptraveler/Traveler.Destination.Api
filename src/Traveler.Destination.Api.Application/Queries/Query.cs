@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FluentValidation.Results;
 using MediatR;
 
 namespace Traveler.Destination.Api.Application.Queries;

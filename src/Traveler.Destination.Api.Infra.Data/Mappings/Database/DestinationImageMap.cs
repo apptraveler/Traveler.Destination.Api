@@ -12,14 +12,13 @@ public class DestinationImageMap : IEntityTypeConfiguration<DestinationImage>
 
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.EncodedImage)
+        builder.Property(x => x.Url)
             .UsePropertyAccessMode(PropertyAccessMode.Field)
-            .HasColumnName("EncodedImage")
+            .HasColumnName("Url")
             .IsRequired();
 
-        builder.Property(x => x.DestinationId)
-            .UsePropertyAccessMode(PropertyAccessMode.Field)
-            .HasColumnName("DestinationId")
-            .IsRequired();
+        builder.HasOne<Domain.Aggregates.DestinationAggregate.Destination>()
+            .WithMany(x => x.Images)
+            .HasForeignKey(x => x.DestinationId);
     }
 }

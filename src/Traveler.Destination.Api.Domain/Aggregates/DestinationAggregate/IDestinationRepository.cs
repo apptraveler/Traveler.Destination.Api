@@ -9,4 +9,5 @@ public interface IDestinationRepository : IRepository<Destination>
 {
     public Task<ICollection<Destination>> GetAll();
     public Task<Destination> GetById(Guid id);
+    public Task<ICollection<Destination>> GetBySearchTerm(string searchTerm);
 }

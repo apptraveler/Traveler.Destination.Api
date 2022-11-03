@@ -21,5 +21,9 @@ public class RouteCoordinatesMap : IEntityTypeConfiguration<RouteCoordinates>
             .UsePropertyAccessMode(PropertyAccessMode.Field)
             .HasColumnName("Longitude")
             .IsRequired();
+
+        builder.HasOne<Domain.Aggregates.DestinationAggregate.Destination>()
+            .WithMany(x => x.Route)
+            .HasForeignKey(x => x.DestinationId);
     }
 }

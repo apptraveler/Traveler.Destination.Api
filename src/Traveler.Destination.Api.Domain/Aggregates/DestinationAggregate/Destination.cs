@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Traveler.Destination.Api.Domain.SeedWork;
 
 namespace Traveler.Destination.Api.Domain.Aggregates.DestinationAggregate;
@@ -8,46 +9,39 @@ public class Destination : Entity, IAggregateRoot
 {
     public string Name { get; }
     public string Description { get; }
-    public DestinationTemperature Temperature { get; private set; }
+    public DestinationClimateAverage ClimateAverage { get; }
     public DestinationAverageSpend AverageSpend { get; private set; }
-    public List<DestinationImage> Images { get; }
-    public List<RouteCoordinates> Route { get; }
-    public List<DestinationTag> Tags { get; }
+    public List<DestinationImage> Images { get; } = new();
+    public List<RouteCoordinates> Route { get; } = new();
+    public List<DestinationTag> Tags { get; } = new();
 
-    private int _temperatureId;
     private int _averageSpendId;
 
-    protected Destination(int temperatureId, int averageSpendId, string name, string description, List<DestinationImage> images, List<RouteCoordinates> route, List<DestinationTag> tags)
+    public Destination(string name, string description, int averageSpendId, DestinationClimateAverage climateAverage)
     {
-        _temperatureId = temperatureId;
-        _averageSpendId = averageSpendId;
+        SetId();
         Name = name;
         Description = description;
-        Images = images;
-        Route = route;
-        Tags = tags;
+        _averageSpendId = averageSpendId;
+        ClimateAverage = climateAverage;
+    }
+
+    public Destination(string name, string description, int averageSpendId, DestinationClimateAverage climateAverage, IEnumerable<RouteCoordinates> route, IEnumerable<string> images, IEnumerable<DestinationTags> tags)
+    {
+        SetId();
+        Name = name;
+        Description = description;
+        _averageSpendId = averageSpendId;
+        ClimateAverage = climateAverage;
+
+        Route.AddRange(route.ToList());
+        Images.AddRange(images.Select(x => new DestinationImage(Id, x)).ToList());
+        Tags.AddRange(tags.Select(x => new DestinationTag(Id, x.Id)).ToList());
+
+        _averageSpendId = averageSpendId;
     }
 
     private Destination()
     {
-    }
-
-    public void AddTag(DestinationTags tag)
-    {
-        var destinationTag = new DestinationTag(Id, tag.Id);
-        Tags.Add(destinationTag);
-        UpdatedAt = DateTime.UtcNow;
-    }
-
-    public void AddImages(IEnumerable<DestinationImage> images)
-    {
-        Images.AddRange(images);
-        UpdatedAt = DateTime.UtcNow;
-    }
-
-    public void AddRoute(RouteCoordinates route)
-    {
-        Route.Add(route);
-        UpdatedAt = DateTime.UtcNow;
     }
 }

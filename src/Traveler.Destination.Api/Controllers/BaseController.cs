@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using Traveler.Destination.Api.Domain.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -36,5 +39,12 @@ public class BaseController : Controller
         }
 
         return action;
+    }
+
+    protected string GetIdentityClaim(string claimName)
+    {
+        var identity = (ClaimsIdentity) User.Identity!;
+        var claim = identity.Claims.FirstOrDefault(claim => claim.Type.Equals(claimName, StringComparison.CurrentCultureIgnoreCase));
+        return claim?.Value ?? string.Empty;
     }
 }

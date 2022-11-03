@@ -5,11 +5,11 @@ using Traveler.Destination.Api.Domain.SeedWork;
 
 namespace Traveler.Destination.Api.Infra.Data.Mappings.Database;
 
-public class DestinationTemperatureMap : IEntityTypeConfiguration<DestinationTemperature>
+public class ClimateStatusMap : IEntityTypeConfiguration<ClimateStatus>
 {
-    public void Configure(EntityTypeBuilder<DestinationTemperature> builder)
+    public void Configure(EntityTypeBuilder<ClimateStatus> builder)
     {
-        builder.ToTable("DestinationTemperatures");
+        builder.ToTable("ClimateStatus");
 
         builder.HasKey(x => x.Id);
 
@@ -18,6 +18,6 @@ public class DestinationTemperatureMap : IEntityTypeConfiguration<DestinationTem
             .HasColumnName("Name")
             .IsRequired();
 
-        builder.HasData(Enumeration.GetAll<DestinationTemperature>());
+        builder.HasData(Enumeration.GetAll<ClimateStatus>());
     }
 }
