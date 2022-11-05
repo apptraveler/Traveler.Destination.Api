@@ -14,6 +14,8 @@ public class DestinationMappings : MappingProfile
                 new DestinationResponse(
                     destination.Id,
                     destination.Name,
+                    destination.City,
+                    destination.Country,
                     destination.Description,
                     new ClimateAverageDto(destination.ClimateAverage.Min, destination.ClimateAverage.Max, Enumeration.FromId<ClimateStatus>(destination.ClimateAverage.StatusId)),
                     destination.AverageSpend,

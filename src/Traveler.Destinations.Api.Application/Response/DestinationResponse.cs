@@ -8,6 +8,8 @@ public class DestinationResponse
 {
     public Guid Id { get; }
     public string Name { get; }
+    public string City { get; }
+    public string Country { get; }
     public string Description { get; }
     public ClimateAverageDto ClimateAverage { get; }
     public DestinationAverageSpend AverageSpend { get; }
@@ -15,10 +17,12 @@ public class DestinationResponse
     public ICollection<RouteCoordinateDto> Route { get; }
     public ICollection<DestinationTags> Tags { get; }
 
-    public DestinationResponse(Guid id, string name, string description, ClimateAverageDto climateAverage, DestinationAverageSpend averageSpend, List<string> images, ICollection<RouteCoordinateDto> route, ICollection<DestinationTags> tags)
+    public DestinationResponse(Guid id, string name, string city, string country, string description, ClimateAverageDto climateAverage, DestinationAverageSpend averageSpend, List<string> images, ICollection<RouteCoordinateDto> route, ICollection<DestinationTags> tags)
     {
         Id = id;
         Name = name;
+        City = city;
+        Country = country;
         Description = description;
         ClimateAverage = climateAverage;
         AverageSpend = averageSpend;
