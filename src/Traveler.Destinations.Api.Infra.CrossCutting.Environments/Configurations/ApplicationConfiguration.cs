@@ -2,8 +2,8 @@
 
 public class ApplicationConfiguration
 {
-    public string Environment { get; }
-    public string GlobalErrorCode { get; }
-    public string GlobalErrorMessage { get; }
-    public string ConnectionString { get; }
+    public string Environment { get; set; }
+    public string GlobalErrorCode { get; set; }
+    public string GlobalErrorMessage { get; set; }
+    public string ConnectionString { get; set; }
 }
