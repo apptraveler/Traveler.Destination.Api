@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Traveler.Destinations.Api.Infra.CrossCutting.Environments.Configurations;
 using Traveler.Destinations.Api.Infra.Data.Mappings.Database;
 
 namespace Traveler.Destinations.Api.Infra.Data.Context;
@@ -10,24 +11,24 @@ namespace Traveler.Destinations.Api.Infra.Data.Context;
 public class ApplicationDbContext : DbContext
 {
     private readonly IMediator _bus;
+    private ApplicationConfiguration _applicationConfiguration;
 
-    public ApplicationDbContext()
+    public ApplicationDbContext(ApplicationConfiguration applicationConfiguration, IMediator bus)
     {
+        _applicationConfiguration = applicationConfiguration;
+        _bus = bus ?? throw new ArgumentNullException(nameof(bus));
     }
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ApplicationConfiguration applicationConfiguration, IMediator bus) : base(options)
     {
-    }
-
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IMediator mediator) : base(options)
-    {
-        _bus = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        _applicationConfiguration = applicationConfiguration;
+        _bus = bus ?? throw new ArgumentNullException(nameof(bus));
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.EnableSensitiveDataLogging();
-        options.UseSqlite("Data Source=../../db/destinations;");
+        options.UseSqlite(_applicationConfiguration.ConnectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
