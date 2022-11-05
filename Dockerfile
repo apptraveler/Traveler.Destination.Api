@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
 WORKDIR /src
 
 COPY . .
-RUN dotnet publish "src/Traveler.Destination.Api" -c Release -o /app/publish
+RUN dotnet publish "src/Traveler.Destinations.Api" -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/sdk:6.0
 
 WORKDIR /app
@@ -12,4 +12,4 @@ ADD ./db ./db
 
 EXPOSE 5000
 EXPOSE 5001
-ENTRYPOINT ["dotnet", "Traveler.Destination.Api.dll"]
+ENTRYPOINT ["dotnet", "Traveler.Destinations.Api.dll"]

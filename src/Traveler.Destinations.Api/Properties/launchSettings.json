@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Traveler.Destination.Api.Api": {
+    "Traveler.Destinations.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
