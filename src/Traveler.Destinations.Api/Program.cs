@@ -16,10 +16,10 @@ using Traveler.Destinations.Api.Application.Schedulers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseSerilog();
+
 var port = Environment.GetEnvironmentVariable("PORT") ?? "6000";
 builder.WebHost.UseUrls("http://*:" + port);
-
-builder.Host.UseSerilog();
 
 builder.Services.AddCustomLogging(builder.Configuration);
 builder.Services.AddCustomAuthentication();
