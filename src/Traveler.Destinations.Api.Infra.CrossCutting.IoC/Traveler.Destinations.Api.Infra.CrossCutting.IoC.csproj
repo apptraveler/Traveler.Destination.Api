@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>10</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.4" />
+        <PackageReference Include="AutoMapper" Version="11.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+        <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
+        <PackageReference Include="Serilog.Exceptions" Version="8.1.0" />
+        <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Traveler.Destinations.Api.Application\Traveler.Destinations.Api.Application.csproj" />
+        <ProjectReference Include="..\Traveler.Destinations.Api.Infra.CrossCutting.Environments\Traveler.Destinations.Api.Infra.CrossCutting.Environments.csproj" />
+        <ProjectReference Include="..\Traveler.Destinations.Api.Infra.Data\Traveler.Destinations.Api.Infra.Data.csproj" />
+        <ProjectReference Include="..\Traveler.Destinations.Api.Infra.Proxy.Identity\Traveler.Destinations.Api.Infra.Proxy.Identity.csproj" />
+    </ItemGroup>
+
+</Project>

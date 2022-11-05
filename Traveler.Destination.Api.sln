@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destination.Api", "src\Traveler.Destination.Api\Traveler.Destination.Api.csproj", "{2FA777D6-8B26-4380-9ABF-837C1C2A59E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destinations.Api", "src\Traveler.Destinations.Api\Traveler.Destinations.Api.csproj", "{2FA777D6-8B26-4380-9ABF-837C1C2A59E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Presentation", "01 - Presentation", "{9DBA9B17-4908-41F9-84F4-F92B8A7B9687}"
 EndProject
@@ -10,25 +10,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Domain", "03 - Domain"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Infrastructure", "04 - Infrastructure", "{B1DCD034-4E6C-4E92-A38D-150B18B65BD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destination.Api.Application", "src\Traveler.Destination.Api.Application\Traveler.Destination.Api.Application.csproj", "{2592EADD-38BA-4B3E-A2C5-9C66C1D7E913}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destinations.Api.Application", "src\Traveler.Destinations.Api.Application\Traveler.Destinations.Api.Application.csproj", "{2592EADD-38BA-4B3E-A2C5-9C66C1D7E913}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destination.Api.Domain", "src\Traveler.Destination.Api.Domain\Traveler.Destination.Api.Domain.csproj", "{FAF1DA31-C0AE-472F-A92E-66A490C1A1C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destinations.Api.Domain", "src\Traveler.Destinations.Api.Domain\Traveler.Destinations.Api.Domain.csproj", "{FAF1DA31-C0AE-472F-A92E-66A490C1A1C6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.2 - CrossCutting", "04.2 - CrossCutting", "{F6CF824B-E87A-4267-B18F-BE9DF4591821}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destination.Api.Infra.CrossCutting.IoC", "src\Traveler.Destination.Api.Infra.CrossCutting.IoC\Traveler.Destination.Api.Infra.CrossCutting.IoC.csproj", "{F0CCF860-E30D-4369-B85E-31B73152379A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destinations.Api.Infra.CrossCutting.IoC", "src\Traveler.Destinations.Api.Infra.CrossCutting.IoC\Traveler.Destinations.Api.Infra.CrossCutting.IoC.csproj", "{F0CCF860-E30D-4369-B85E-31B73152379A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.1 - Data", "04.1 - Data", "{8B76B6ED-B104-440D-A530-CA16664604FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destination.Api.Infra.Data", "src\Traveler.Destination.Api.Infra.Data\Traveler.Destination.Api.Infra.Data.csproj", "{FEE1EE91-190A-4E79-894D-0D73EC54D424}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destinations.Api.Infra.Data", "src\Traveler.Destinations.Api.Infra.Data\Traveler.Destinations.Api.Infra.Data.csproj", "{FEE1EE91-190A-4E79-894D-0D73EC54D424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destination.Api.Infra.CrossCutting.Environments", "src\Traveler.Destination.Api.Infra.CrossCutting.Environments\Traveler.Destination.Api.Infra.CrossCutting.Environments.csproj", "{BA5501A3-07A6-4281-A217-298083EC34D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destinations.Api.Infra.CrossCutting.Environments", "src\Traveler.Destinations.Api.Infra.CrossCutting.Environments\Traveler.Destinations.Api.Infra.CrossCutting.Environments.csproj", "{BA5501A3-07A6-4281-A217-298083EC34D2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.3 - Proxy", "04.3 - Proxy", "{2AD85DF1-904E-406A-94C8-54DC60279A84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destination.Api.Infra.Proxy.Common", "src\Traveler.Destination.Api.Infra.Proxy.Common\Traveler.Destination.Api.Infra.Proxy.Common.csproj", "{E30207D5-C067-4186-90EE-1269EC6CF571}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destinations.Api.Infra.Proxy.Common", "src\Traveler.Destinations.Api.Infra.Proxy.Common\Traveler.Destinations.Api.Infra.Proxy.Common.csproj", "{E30207D5-C067-4186-90EE-1269EC6CF571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destination.Api.Infra.Proxy.Identity", "src\Traveler.Destination.Api.Infra.Proxy.Identity\Traveler.Destination.Api.Infra.Proxy.Identity.csproj", "{8696DCB5-BC4F-4521-A91A-BE9B552C1ECA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traveler.Destinations.Api.Infra.Proxy.Identity", "src\Traveler.Destinations.Api.Infra.Proxy.Identity\Traveler.Destinations.Api.Infra.Proxy.Identity.csproj", "{8696DCB5-BC4F-4521-A91A-BE9B552C1ECA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
