@@ -32,8 +32,20 @@ public class DestinationController : BaseController
     public async Task<IActionResult> GetDestinations()
     {
         var query = new GetDestinationsQuery();
-        var response = await _bus.Send(query);
-        return Response(Ok(new Response<ICollection<DestinationResponse>>(response)));
+        var destinations = await _bus.Send(query);
+
+        if (destinations is null || !destinations.Any()) return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
+
+        var userId = GetIdentityClaim(UserClaims.UserId);
+        var queryBookmark = new GetBookmarkedDestinationsQuery(Guid.Parse(userId));
+        var bookmarkedDestinations = await _bus.Send(queryBookmark);
+
+        foreach (var destination in destinations)
+        {
+            destination.Bookmarked = bookmarkedDestinations.Any(x => x.Name.Equals(destination.Name));
+        }
+
+        return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
     }
 
     [HttpGet("{searchTerm}")]
@@ -41,8 +53,20 @@ public class DestinationController : BaseController
     public async Task<IActionResult> GetDestinationsBySearchTerm(string searchTerm)
     {
         var query = new GetDestinationsBySearchTermQuery(searchTerm);
-        var response = await _bus.Send(query);
-        return Response(Ok(new Response<ICollection<DestinationResponse>>(response)));
+        var destinations = await _bus.Send(query);
+
+        if (destinations is null || !destinations.Any()) return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
+
+        var userId = GetIdentityClaim(UserClaims.UserId);
+        var queryBookmark = new GetBookmarkedDestinationsQuery(Guid.Parse(userId));
+        var bookmarkedDestinations = await _bus.Send(queryBookmark);
+
+        foreach (var destination in destinations)
+        {
+            destination.Bookmarked = bookmarkedDestinations.Any(x => x.Name.Equals(destination.Name));
+        }
+
+        return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
     }
 
     [HttpGet("recommendations")]
@@ -57,8 +81,19 @@ public class DestinationController : BaseController
             .ToList();
 
         var query = new GetRecommendedDestinationsByUserIdQuery(Guid.Parse(userId), locationTagsIds, Convert.ToInt32(averageSpendPreferenceId));
-        var response = await _bus.Send(query);
-        return Response(Ok(new Response<ICollection<DestinationResponse>>(response)));
+        var destinations = await _bus.Send(query);
+
+        if (destinations is null || !destinations.Any()) return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
+
+        var queryBookmark = new GetBookmarkedDestinationsQuery(Guid.Parse(userId));
+        var bookmarkedDestinations = await _bus.Send(queryBookmark);
+
+        foreach (var destination in destinations)
+        {
+            destination.Bookmarked = bookmarkedDestinations.Any(x => x.Name.Equals(destination.Name));
+        }
+
+        return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
     }
 
     [HttpGet("bookmarked")]

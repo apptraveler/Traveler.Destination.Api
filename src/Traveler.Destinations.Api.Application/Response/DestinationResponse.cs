@@ -11,6 +11,7 @@ public class DestinationResponse
     public string City { get; }
     public string Country { get; }
     public string Description { get; }
+    public bool Bookmarked { get; set; }
     public ClimateAverageDto ClimateAverage { get; }
     public DestinationAverageSpend AverageSpend { get; }
     public List<string> Images { get; }
