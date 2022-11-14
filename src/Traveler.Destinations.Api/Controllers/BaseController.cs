@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using Traveler.Destinations.Api.Domain.Exceptions;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Traveler.Destinations.Api.Dtos;
 using Traveler.Destinations.Api.Filters;
@@ -20,7 +21,7 @@ public class BaseController : Controller
 
     protected BaseController(INotificationHandler<ExceptionNotification> notifications)
     {
-        _notifications = (ExceptionNotificationHandler)notifications;
+        _notifications = (ExceptionNotificationHandler) notifications;
     }
 
     protected bool IsValidOperation()
@@ -28,7 +29,7 @@ public class BaseController : Controller
         return !_notifications.HasNotifications();
     }
 
-    protected new IActionResult Response(IActionResult action)
+    protected new IActionResult CreateResponse(IActionResult action)
     {
         if (!IsValidOperation())
         {
@@ -44,6 +45,14 @@ public class BaseController : Controller
     {
         var identity = (ClaimsIdentity) User.Identity!;
         var claim = identity.Claims.FirstOrDefault(claim => claim.Type.Equals(claimName, StringComparison.CurrentCultureIgnoreCase));
-        return claim?.Value ?? string.Empty;
+
+        if (string.IsNullOrEmpty(claim?.Value))
+        {
+            Response.StatusCode = StatusCodes.Status403Forbidden;
+            Response.CompleteAsync().ConfigureAwait(false);
+            throw new ArgumentNullException($"Não foi encontrado a claim {claimName} do usuários");
+        }
+
+        return claim.Value;
     }
 }

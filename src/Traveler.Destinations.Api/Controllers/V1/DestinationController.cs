@@ -34,7 +34,7 @@ public class DestinationController : BaseController
         var query = new GetDestinationsQuery();
         var destinations = await _bus.Send(query);
 
-        if (destinations is null || !destinations.Any()) return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
+        if (destinations is null || !destinations.Any()) return CreateResponse(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
 
         var userId = GetIdentityClaim(UserClaims.UserId);
         var queryBookmark = new GetBookmarkedDestinationsQuery(Guid.Parse(userId));
@@ -45,7 +45,7 @@ public class DestinationController : BaseController
             destination.Bookmarked = bookmarkedDestinations.Any(x => x.Name.Equals(destination.Name));
         }
 
-        return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
+        return CreateResponse(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
     }
 
     [HttpGet("{searchTerm}")]
@@ -55,7 +55,7 @@ public class DestinationController : BaseController
         var query = new GetDestinationsBySearchTermQuery(searchTerm);
         var destinations = await _bus.Send(query);
 
-        if (destinations is null || !destinations.Any()) return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
+        if (destinations is null || !destinations.Any()) return CreateResponse(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
 
         var userId = GetIdentityClaim(UserClaims.UserId);
         var queryBookmark = new GetBookmarkedDestinationsQuery(Guid.Parse(userId));
@@ -66,7 +66,7 @@ public class DestinationController : BaseController
             destination.Bookmarked = bookmarkedDestinations.Any(x => x.Name.Equals(destination.Name));
         }
 
-        return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
+        return CreateResponse(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
     }
 
     [HttpGet("recommendations")]
@@ -83,7 +83,7 @@ public class DestinationController : BaseController
         var query = new GetRecommendedDestinationsByUserIdQuery(Guid.Parse(userId), locationTagsIds, Convert.ToInt32(averageSpendPreferenceId));
         var destinations = await _bus.Send(query);
 
-        if (destinations is null || !destinations.Any()) return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
+        if (destinations is null || !destinations.Any()) return CreateResponse(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
 
         var queryBookmark = new GetBookmarkedDestinationsQuery(Guid.Parse(userId));
         var bookmarkedDestinations = await _bus.Send(queryBookmark);
@@ -93,7 +93,7 @@ public class DestinationController : BaseController
             destination.Bookmarked = bookmarkedDestinations.Any(x => x.Name.Equals(destination.Name));
         }
 
-        return Response(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
+        return CreateResponse(Ok(new Response<ICollection<DestinationResponse>>(destinations)));
     }
 
     [HttpGet("bookmarked")]
@@ -103,7 +103,13 @@ public class DestinationController : BaseController
         var userId = GetIdentityClaim(UserClaims.UserId);
         var query = new GetBookmarkedDestinationsQuery(Guid.Parse(userId));
         var response = await _bus.Send(query);
-        return Response(Ok(new Response<ICollection<DestinationResponse>>(response)));
+
+        foreach (var destination in response)
+        {
+            destination.Bookmarked = true;
+        }
+
+        return CreateResponse(Ok(new Response<ICollection<DestinationResponse>>(response)));
     }
 
     [HttpPost("{id:guid}/bookmark")]
@@ -113,7 +119,7 @@ public class DestinationController : BaseController
         var userId = GetIdentityClaim(UserClaims.UserId);
         var command = new BookmarkDestinationByIdCommand(Guid.Parse(userId), id);
         await _bus.Send(command);
-        return Response(NoContent());
+        return CreateResponse(NoContent());
     }
 
     [HttpDelete("{id:guid}/bookmark")]
@@ -123,6 +129,6 @@ public class DestinationController : BaseController
         var userId = GetIdentityClaim(UserClaims.UserId);
         var command = new DeleteBookmarkedDestinationByIdCommand(Guid.Parse(userId), id);
         await _bus.Send(command);
-        return Response(NoContent());
+        return CreateResponse(NoContent());
     }
 }
