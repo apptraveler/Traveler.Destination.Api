@@ -55,6 +55,7 @@ public class BearerAuthenticationScheme : AuthenticationHandler<BearerAuthentica
             var claims = new List<Claim>
             {
                 new(UserClaims.UserId, userCredentials.UserId.ToString()),
+                new(UserClaims.FullName, userCredentials.FullName),
                 new(UserClaims.LocationTags, (userCredentials.LocationTags.Any() ? string.Join(",", userCredentials.LocationTags.Select(x => x.Id)) : null) ?? string.Empty),
                 new(UserClaims.AverageSpendPreference, userCredentials.AverageSpend?.Id.ToString() ?? string.Empty),
             };

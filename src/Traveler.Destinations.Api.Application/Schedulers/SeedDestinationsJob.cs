@@ -109,10 +109,10 @@ public class SeedDestinationsJob : Scheduler
         var reykjavikTags = new[] {DestinationTags.Waterfalls, DestinationTags.Mountains, DestinationTags.Beach};
         var edinburghTags = new[] {DestinationTags.HistoricalPlaces, DestinationTags.TouristSpots, DestinationTags.Mountains};
 
-        var canadaCoordinates = new[] {new RouteCoordinates(43.651070, -79.347015)};
-        var japanCoordinates = new[] {new RouteCoordinates(35.6894, 139.692)};
-        var reykjavikCoordinates = new[] {new RouteCoordinates(64.128288, -21.827774)};
-        var edinburghCoordinates = new[] {new RouteCoordinates(55.953251, -3.188267)};
+        var canadaCoordinates = new[] {new RouteCoordinates("", "", 43.651070, -79.347015)};
+        var japanCoordinates = new[] {new RouteCoordinates("", "", 35.6894, 139.692)};
+        var reykjavikCoordinates = new[] {new RouteCoordinates("", "", 64.128288, -21.827774)};
+        var edinburghCoordinates = new[] {new RouteCoordinates("", "", 55.953251, -3.188267)};
 
         return new[]
         {

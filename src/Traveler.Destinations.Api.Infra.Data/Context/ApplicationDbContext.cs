@@ -42,6 +42,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new RouteCoordinatesMap());
         modelBuilder.ApplyConfiguration(new BookmarkedDestinationMap());
         modelBuilder.ApplyConfiguration(new DestinationMap());
+        modelBuilder.ApplyConfiguration(new ReviewMap());
         base.OnModelCreating(modelBuilder);
     }
 

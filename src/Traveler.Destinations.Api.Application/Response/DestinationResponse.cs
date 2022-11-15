@@ -35,11 +35,15 @@ public class DestinationResponse
 
 public class RouteCoordinateDto
 {
+    public string Name { get; }
+    public string Description { get; }
     public double Latitude { get; }
     public double Longitude { get; }
 
-    public RouteCoordinateDto(double latitude, double longitude)
+    public RouteCoordinateDto(string name, string description, double latitude, double longitude)
     {
+        Name = name;
+        Description = description;
         Latitude = latitude;
         Longitude = longitude;
     }

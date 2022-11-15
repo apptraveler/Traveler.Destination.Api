@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Traveler.Destinations.Api.Application.Adapters.Identity;
 using Traveler.Destinations.Api.Domain.Aggregates.BookmarkedDestination;
 using Traveler.Destinations.Api.Domain.Aggregates.DestinationAggregate;
+using Traveler.Destinations.Api.Domain.Aggregates.ReviewAggregate;
 using Traveler.Destinations.Api.Domain.Exceptions;
 using Traveler.Destinations.Api.Domain.SeedWork;
 using Traveler.Destinations.Api.Infra.Data.Repositories;
@@ -32,6 +33,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IDestinationRepository, DestinationRepository>();
         services.AddScoped<IBookmarkDestinationRepository, BookmarkedDestinationRepository>();
+        services.AddScoped<IReviewRepository, ReviewRepository>();
     }
 
     private static void RegisterMediatR(IServiceCollection services)

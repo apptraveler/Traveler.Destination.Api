@@ -20,7 +20,7 @@ public class DestinationMappings : MappingProfile
                     new ClimateAverageDto(destination.ClimateAverage.Min, destination.ClimateAverage.Max, Enumeration.FromId<ClimateStatus>(destination.ClimateAverage.StatusId)),
                     destination.AverageSpend,
                     destination.Images.Select(x => x.Url).ToList(),
-                    destination.Route.Select(x => new RouteCoordinateDto(x.Latitude, x.Longitude)).ToList(),
+                    destination.Route.Select(x => new RouteCoordinateDto(x.Name, x.Description, x.Latitude, x.Longitude)).ToList(),
                     destination.Tags.Select(x => Enumeration.FromId<DestinationTags>(x.TagId)).ToList()
                 )
             );

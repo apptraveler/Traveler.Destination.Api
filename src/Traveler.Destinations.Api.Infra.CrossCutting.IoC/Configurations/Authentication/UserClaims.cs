@@ -3,6 +3,7 @@
 public static class UserClaims
 {
     public const string UserId = "UserId";
+    public const string FullName = "FullName";
     public const string LocationTags = "UserLocationTags";
     public const string AverageSpendPreference = "UserAverageSpendPreference";
 }
